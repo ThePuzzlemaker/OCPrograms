@@ -1,0 +1,20 @@
+NAME
+  sandbox - a simple sandbox to run OSes without the need to restart
+
+SYNOPSIS
+  sandbox <path>
+
+DESCRIPTION
+  This program allows running an OS in a simple sandbox without needing to restart. As of now, it only loads the OS, but in a future release, it will allow fine control about what filesystems and components are allowed.
+
+OPTIONS
+  The only argument is path, which is required.
+  It is the path to the OS/Filesystem to run. A BIOS is required at <path>/bios.lua for the sandbox to start.
+  
+
+EXAMPLES
+  sandbox /
+    Sandboxes the currently running OS
+	
+  sandbox /mnt/<disk>
+    Sandboxes the OS on disk <disk>
