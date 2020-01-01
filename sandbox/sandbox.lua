@@ -63,6 +63,7 @@ local prebios = {
     bnot = bit32.bnot,
     bor = bit32.bor,
     btest = bit32.btest,
+    bxor = bit32.bxor,
     extract = bit32.extract,
     lrotate = bit32.lrotate,
     lshift = bit32.lshift,
@@ -76,11 +77,14 @@ local prebios = {
     running = coroutine.running,
     status = coroutine.status,
     wrap = coroutine.wrap,
-    yield = coroutine.yield
+    yield = coroutine.yield,
+    
   },
   debug = {
     getinfo = debug.getinfo,
-    traceback = debug.traceback
+    traceback = debug.traceback,
+    getlocal = debug.getlocal,
+    getupvalue = debug.getupvalue
   },
   math = {
     abs = math.abs,
@@ -163,6 +167,9 @@ local prebios = {
     getArchitectures = computer.getArchitectures,
     getArchitecture = computer.getArchitecture,
     getBootAddress = computer.getBootAddress,
+    getDeviceInfo = computer.getDeviceInfo,
+    getProgramLocations = computer.getProgramLocations,
+    isRobot = computer.isRobot,
     maxEnergy = computer.maxEnergy,
     pullSignal = computer.pullSignal,
     pushSignal = computer.pushSignal,
@@ -191,6 +198,28 @@ local prebios = {
 prebios._G = prebios
 prebios._BD = biosData
 prebios._BA = fsAddr
+
+if _VERSION == "Lua 5.3" then
+  prebios.utf8 = {
+    char = utf8.char,
+    charpattern = utf8.charpattern,
+    codes = utf8.codes,
+    codepoint = utf8.codepoint,
+    len = utf8.len,
+    offset = utf8.offset
+  }
+  prebios.coroutine.isyieldable = coroutine.isyieldable
+  prebios.string.pack = string.pack
+  prebios.string.unpack = string.unpack
+  prebios.string.packsize = string.packsize
+  prebios.table.move = table.move
+  prebios.math.maxinteger = math.maxinteger
+  prebios.math.mininteger = math.mininteger
+  prebios.math.tointeger = math.tointeger
+  prebios.math.type = math.type
+  prebios.math.ult = math.ult
+end
+
 prebios.computer.shutdown = function()
   coroutine.yield(_CO)
 end
