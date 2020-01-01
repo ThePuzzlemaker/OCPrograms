@@ -229,5 +229,4 @@ co = coroutine.create(function()
 end)
 prebios._CO = co
 coroutine.resume(co)
-term.clear()
 print("Sandbox shut down.")
