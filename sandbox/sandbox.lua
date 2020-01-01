@@ -225,8 +225,17 @@ prebios.computer.shutdown = function()
 end
 
 co = coroutine.create(function()
-  load(prebios._BD, "=" .. path .. "/bios.lua", "bt", prebios)()
+  local func, reason = load(prebios._BD, "=" .. path .. "/bios.lua", "bt", prebios)
+  if not func then
+    print("Error: " .. reason)
+    prebios.computer.shutdown()
+  else
+    local ok, retval = pcall(func)
+    print("Error: " .. retval)
+    prebios.computer.shutdown()
+  end
 end)
 prebios._CO = co
 coroutine.resume(co)
+computer.setBootAddress(bootAddrBak)
 print("Sandbox shut down.")
